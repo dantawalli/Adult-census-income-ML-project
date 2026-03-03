@@ -1,0 +1,6 @@
+# IDE settings
+.idea/
+Data/.idea/
+
+# System files
+.DS_Store
