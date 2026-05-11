@@ -1,6 +1,6 @@
 # IDE settings
 .idea/
-Data/.idea/
+.venv
 
 # System files
 .DS_Store
