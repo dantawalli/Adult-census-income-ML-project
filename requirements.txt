@@ -1,8 +1,27 @@
-pandas==2.3.3
-numpy==1.26.4
-matplotlib==3.8.2
-seaborn==0.13.1
-scikit-learn==1.5.2
-imbalanced-learn==0.12.3
-xgboost==2.0.3
-scipy==1.13.1
+# ============================================================
+# Requirements — Income Classification Project
+# Author: Buhari Nasir Ahmad
+# ============================================================
+
+# Core data science
+numpy>=1.26,<3
+pandas>=2.1,<4
+scipy>=1.11
+
+# Machine learning
+scikit-learn>=1.4
+imbalanced-learn>=0.12       # SMOTE and resampling utilities
+
+# Visualisation
+matplotlib>=3.8
+seaborn>=0.13
+
+# Model interpretability
+shap>=0.45
+
+# Dataset download
+kagglehub>=0.2
+
+# Jupyter environment
+notebook>=7.0
+ipykernel>=6.0
