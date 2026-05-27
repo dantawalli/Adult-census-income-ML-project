@@ -149,6 +149,7 @@ def engineer_features(df: pd.DataFrame) -> pd.DataFrame:
     """
     engineered_df = df.copy()
 
+
     # ========================================================
     # Group native-country into broader categories
     # ========================================================
@@ -212,4 +213,17 @@ def engineer_features(df: pd.DataFrame) -> pd.DataFrame:
         engineered_df["capital-loss"]
     )
 
+    # ========================================================
+    # Remove low-interpretability sampling-weight feature
+    # ========================================================
+
+    engineered_df = engineered_df.drop(
+        columns=[
+            "fnlwgt",
+            "capital_gain",
+            "capital_loss",
+        ],
+        errors="ignore"
+    )
+    
     return engineered_df

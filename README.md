@@ -1,8 +1,8 @@
-# Adult Income Classification — Applied Programming for Data Science
+# Adult Income Classification — Machine Learning Project
 
-A modular and reproducible machine learning project for predicting whether an individual's income exceeds $50K per year using the Adult Census Income dataset.
+A comprehensive and reproducible machine learning project for predicting whether an individual’s annual income exceeds $50K using the Adult Census Income dataset.
 
-This project was developed for the Applied Programming for Data Science course and demonstrates the integration of software engineering principles with machine learning workflows.
+This project was developed as part of a Machine Learning and Data Science project and demonstrates the complete application of the machine learning lifecycle, including data preprocessing, exploratory data analysis, feature engineering, model training, hyperparameter optimization, interpretability analysis, fairness evaluation, and responsible AI considerations.
 
 ---
 
@@ -10,14 +10,16 @@ This project was developed for the Applied Programming for Data Science course a
 
 The project aims to:
 
-* build a complete machine learning workflow in Python
-* perform exploratory data analysis (EDA)
-* preprocess and transform structured tabular data
-* compare multiple classification models
-* evaluate models using appropriate metrics
-* interpret predictions using SHAP
-* demonstrate modular software architecture
-* support reproducibility and model persistence
+* develop a complete end-to-end machine learning pipeline for income classification
+* perform exploratory data analysis (EDA) to understand socioeconomic patterns
+* preprocess and transform structured tabular data for machine learning
+* engineer meaningful features to improve predictive performance
+* compare multiple supervised classification algorithms
+* optimize models using hyperparameter tuning
+* evaluate predictive performance using multiple classification metrics
+* interpret model behavior using feature importance and SHAP analysis
+* analyze fairness across sensitive demographic groups
+* demonstrate reproducible and responsible machine learning practices
 
 ---
 
@@ -26,9 +28,11 @@ The project aims to:
 Dataset: Adult Census Income Dataset
 
 Source:
-[Adult Income Dataset on Kaggle](https://www.kaggle.com/datasets/wenruliu/adult-income-dataset)
+[Adult Income Dataset on Kaggle](https://www.kaggle.com/datasets/wenruliu/adult-income-dataset?utm_source=chatgpt.com)
 
-Target Variable:
+The dataset contains demographic, educational, occupational, and financial information collected from the 1994 U.S. Census database.
+
+## Target Variable
 
 * `income`
 
@@ -40,7 +44,7 @@ Target Variable:
 # Project Structure
 
 ```text
-adult-income-applied-programming/
+adult-income-ml-project/
 │
 ├── data/
 │
@@ -54,8 +58,11 @@ adult-income-applied-programming/
 │   ├── config.py
 │   ├── data_loader.py
 │   ├── preprocessing.py
+│   ├── feature_engineering.py
 │   ├── modeling.py
 │   ├── evaluation.py
+│   ├── fairness.py
+│   ├── interpretability.py
 │   ├── persistence.py
 │   ├── prediction.py
 │   └── visualization.py
@@ -67,49 +74,102 @@ adult-income-applied-programming/
 
 ---
 
-# Applied Programming Concepts Demonstrated
+# Exploratory Data Analysis (EDA)
 
-This project applies several concepts from the Applied Programming course:
+Exploratory data analysis was conducted to better understand the structure and characteristics of the dataset.
 
-* modular Python project structure
-* reusable functions
-* object-oriented programming using `@dataclass`
-* exception handling
-* Scikit-learn preprocessing pipelines
-* model persistence with `joblib`
-* reproducible workflows
-* separation of concerns
-* structured project organization
-* notebook-based exploratory analysis
+The analysis included:
+
+* missing-value analysis
+* duplicate detection
+* class distribution analysis
+* categorical feature analysis
+* numerical feature correlation analysis
+* income distribution across demographic groups
+* socioeconomic relationship visualization
+
+Several visualizations were created to identify important patterns related to income level, including relationships between education, occupation, marital status, work hours, capital gain, and demographic characteristics.
+
+---
+
+# Feature Engineering
+
+Feature engineering techniques were applied to improve model performance and better represent socioeconomic patterns within the dataset.
+
+The engineered features included:
+
+* grouped education categories
+* grouped native-country categories
+* binary capital-gain indicators
+* binary capital-loss indicators
+* logarithmic transformations for skewed financial variables
+
+Examples:
+
+* `capital-gain-log`
+* `capital-loss-log`
+* `has-capital-gain`
+* `has-capital-loss`
+
+These transformations improved the ability of machine learning algorithms to capture non-linear income-related relationships.
+
+---
+
+# Data Preprocessing
+
+A reusable Scikit-learn preprocessing pipeline was implemented to ensure consistent and reproducible data transformation.
+
+## Numerical Features
+
+Processed using:
+
+* median imputation
+* standard scaling
+
+## Categorical Features
+
+Processed using:
+
+* most-frequent imputation
+* one-hot encoding
+
+The preprocessing pipeline was applied only on the training data to prevent data leakage and ensure valid model evaluation.
+
+After one-hot encoding, the dataset dimensionality increased from the original feature space to **117 transformed numerical features**.
 
 ---
 
 # Machine Learning Workflow
 
-The project follows this workflow:
+The project follows a complete machine learning workflow:
 
 1. Dataset loading
 2. Data cleaning
 3. Exploratory Data Analysis (EDA)
 4. Feature engineering
-5. Preprocessing pipelines
-6. Model training
-7. Hyperparameter tuning
-8. Model evaluation
-9. Model interpretation
-10. Model persistence
-11. Prediction reuse
+5. Data preprocessing
+6. Train-test splitting
+7. Baseline model construction
+8. Model training
+9. Hyperparameter tuning
+10. Model evaluation
+11. Fairness analysis
+12. Model interpretability analysis
+13. Model comparison
+14. Best-model selection
+15. Model persistence
 
 ---
 
-# Models Used
+# Models Implemented
 
-The following classification models were implemented and compared:
+The following classification algorithms were trained and evaluated:
 
 * Baseline Classifier
 * Logistic Regression
 * Decision Tree
 * Random Forest
+* Gradient Boosting
 
 Hyperparameter tuning was performed using `GridSearchCV`.
 
@@ -117,7 +177,7 @@ Hyperparameter tuning was performed using `GridSearchCV`.
 
 # Evaluation Metrics
 
-The models were evaluated using:
+The models were evaluated using multiple classification metrics to provide a balanced assessment of predictive performance:
 
 * Accuracy
 * Precision
@@ -126,14 +186,83 @@ The models were evaluated using:
 * Matthews Correlation Coefficient (MCC)
 * ROC-AUC
 
+Confusion matrices and ROC curves were also used for deeper evaluation of classification behavior and class-separation capability.
+
 ---
 
-# Interpretability
+# Model Interpretability
 
-Model interpretability was explored using:
+Model interpretability was analyzed using multiple approaches:
 
-* feature importance analysis
-* SHAP (SHapley Additive exPlanations)
+## Logistic Regression Coefficients
+
+Used to understand the direction and magnitude of feature influence on income predictions.
+
+## Tree-Based Feature Importance
+
+Used to identify the most influential features within Decision Tree, Random Forest, and Gradient Boosting models.
+
+## SHAP Analysis
+
+SHAP (SHapley Additive exPlanations) was used to provide both global and local interpretability insights.
+
+The analysis revealed that features related to:
+
+* marital status
+* education level
+* capital gain
+* age
+* work hours
+
+were among the strongest predictors of income level.
+
+---
+
+# Fairness and Responsible AI Analysis
+
+The project also explored fairness-aware evaluation by analyzing model performance across demographic groups.
+
+Fairness analysis was conducted across:
+
+* gender groups
+* race groups
+
+The results demonstrated that predictive performance varied across demographic populations, highlighting the importance of responsible AI evaluation when working with sensitive socioeconomic data.
+
+This analysis emphasized that strong aggregate model performance does not necessarily imply equitable performance across all groups.
+
+---
+
+# Best Performing Model
+
+Among all evaluated models, the tuned Gradient Boosting classifier achieved the strongest overall predictive performance.
+
+Performance metrics:
+
+* Accuracy: **0.8692**
+* Precision: **0.7735**
+* Recall: **0.6417**
+* F1 Score: **0.7015**
+* MCC: **0.6231**
+* ROC-AUC: **0.9252**
+
+These results demonstrate the effectiveness of boosting-based ensemble learning methods for capturing complex non-linear relationships within structured socioeconomic datasets.
+
+---
+
+# Technologies and Libraries
+
+The project was implemented using:
+
+* Python
+* Pandas
+* NumPy
+* Scikit-learn
+* Matplotlib
+* Seaborn
+* SHAP
+* Joblib
+* Jupyter Notebook
 
 ---
 
@@ -142,13 +271,13 @@ Model interpretability was explored using:
 ## 1. Clone repository
 
 ```bash
-git clone https://github.com/dantawalli/adult-income-applied-programming.git
+git clone https://github.com/dantawalli/Adult-census-income-ML-project.git
 ```
 
-## 2. Navigate to project
+## 2. Navigate to project directory
 
 ```bash
-cd adult-income-applied-programming
+cd Adult-census-income-ML-project
 ```
 
 ## 3. Create virtual environment
@@ -181,7 +310,7 @@ pip install -r requirements.txt
 
 # Running the Project
 
-## Run notebook
+## Run Jupyter Notebook
 
 ```bash
 jupyter notebook
@@ -195,7 +324,7 @@ notebooks/adult_income_classification.ipynb
 
 ---
 
-## Run Python workflow
+## Run Python Workflow
 
 ```bash
 python main.py
@@ -205,7 +334,7 @@ python main.py
 
 # Model Persistence
 
-The best-performing model is saved using `joblib`.
+The best-performing trained model can be saved and reused using `joblib`.
 
 Example:
 
@@ -216,8 +345,9 @@ from src.persistence import save_model, load_model
 This supports:
 
 * reproducibility
-* prediction reuse
 * deployment-oriented workflows
+* prediction reuse
+* future model evaluation
 
 ---
 
@@ -227,7 +357,7 @@ This supports:
 from src.prediction import predict_income
 ```
 
-The project includes reusable prediction functions for generating predictions on new observations.
+Reusable prediction functions are included for generating predictions on unseen observations.
 
 ---
 
@@ -241,4 +371,4 @@ Master’s Student — Artificial Intelligence for Sustainable Societies (AISS)
 
 # License
 
-This project is for academic and educational purposes.
+This project is intended for academic and educational purposes.
