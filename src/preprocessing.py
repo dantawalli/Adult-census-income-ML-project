@@ -1,5 +1,7 @@
 import numpy as np
 import pandas as pd
+import seaborn as sns
+from matplotlib import pyplot as plt
 
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
@@ -227,3 +229,189 @@ def engineer_features(df: pd.DataFrame) -> pd.DataFrame:
     )
     
     return engineered_df
+
+
+
+def plot_feature_engineering_transformations(
+    clean_df: pd.DataFrame,
+    engineered_df: pd.DataFrame,
+) -> None:
+    """
+    Visualize feature engineering transformations.
+
+    Displays:
+    1. Education grouping
+    2. Native country grouping
+    3. Capital gain log transformation
+    4. Capital loss log transformation
+    5. Capital indicator features
+    """
+
+    # ========================================================
+    # Education grouping
+    # ========================================================
+
+    fig, axes = plt.subplots(
+        1,
+        2,
+        figsize=(14, 5)
+    )
+
+    clean_df["education"].value_counts().plot(
+        kind="bar",
+        ax=axes[0]
+    )
+
+    axes[0].set_title(
+        "Before: Education Categories"
+    )
+
+    engineered_df[
+        "education-group"
+    ].value_counts().plot(
+        kind="bar",
+        ax=axes[1]
+    )
+
+    axes[1].set_title(
+        "After: Education Grouping"
+    )
+
+    plt.tight_layout()
+    plt.show()
+
+    # ========================================================
+    # Native country grouping
+    # ========================================================
+
+    fig, axes = plt.subplots(
+        1,
+        2,
+        figsize=(14, 5)
+    )
+
+    clean_df[
+        "native-country"
+    ].value_counts().head(15).plot(
+        kind="bar",
+        ax=axes[0]
+    )
+
+    axes[0].set_title(
+        "Before: Native Country"
+    )
+
+    engineered_df[
+        "native-country-group"
+    ].value_counts().plot(
+        kind="bar",
+        ax=axes[1]
+    )
+
+    axes[1].set_title(
+        "After: Country Grouping"
+    )
+
+    plt.tight_layout()
+    plt.show()
+
+    # ========================================================
+    # Capital gain transformation
+    # ========================================================
+
+    fig, axes = plt.subplots(
+        1,
+        2,
+        figsize=(14, 5)
+    )
+
+    sns.histplot(
+        clean_df["capital-gain"],
+        bins=50,
+        ax=axes[0]
+    )
+
+    axes[0].set_title(
+        "Before: Capital Gain"
+    )
+
+    sns.histplot(
+        engineered_df["capital-gain-log"],
+        bins=50,
+        ax=axes[1]
+    )
+
+    axes[1].set_title(
+        "After: Capital Gain Log"
+    )
+
+    plt.tight_layout()
+    plt.show()
+
+    # ========================================================
+    # Capital loss transformation
+    # ========================================================
+
+    fig, axes = plt.subplots(
+        1,
+        2,
+        figsize=(14, 5)
+    )
+
+    sns.histplot(
+        clean_df["capital-loss"],
+        bins=50,
+        ax=axes[0]
+    )
+
+    axes[0].set_title(
+        "Before: Capital Loss"
+    )
+
+    sns.histplot(
+        engineered_df["capital-loss-log"],
+        bins=50,
+        ax=axes[1]
+    )
+
+    axes[1].set_title(
+        "After: Capital Loss Log"
+    )
+
+    plt.tight_layout()
+    plt.show()
+
+    # ========================================================
+    # Capital indicators
+    # ========================================================
+
+    fig, axes = plt.subplots(
+        1,
+        2,
+        figsize=(12, 5)
+    )
+
+    engineered_df[
+        "has-capital-gain"
+    ].value_counts().plot(
+        kind="bar",
+        ax=axes[0]
+    )
+
+    axes[0].set_title(
+        "Has Capital Gain"
+    )
+
+    engineered_df[
+        "has-capital-loss"
+    ].value_counts().plot(
+        kind="bar",
+        ax=axes[1]
+    )
+
+    axes[1].set_title(
+        "Has Capital Loss"
+    )
+
+    plt.tight_layout()
+    plt.show()

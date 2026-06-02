@@ -28,7 +28,7 @@ The project aims to:
 Dataset: Adult Census Income Dataset
 
 Source:
-[Adult Income Dataset on Kaggle](https://www.kaggle.com/datasets/wenruliu/adult-income-dataset?utm_source=chatgpt.com)
+[Adult Income Dataset on Kaggle](https://www.kaggle.com/datasets/wenruliu/adult-income-dataset)
 
 The dataset contains demographic, educational, occupational, and financial information collected from the 1994 U.S. Census database.
 
