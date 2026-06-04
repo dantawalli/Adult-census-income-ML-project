@@ -1,59 +1,46 @@
 from pathlib import Path
 
-import kagglehub
 import pandas as pd
 
-from src.config import DATASET_NAME, DATA_FILE_NAME
+from src.config import DATASET_PATH
 
 
 class DatasetLoadError(Exception):
-    """Custom exception raised when dataset loading fails."""
+    """Raised when dataset loading fails."""
 
 
-def download_dataset() -> Path:
+def load_dataset(path: str | Path = DATASET_PATH) -> pd.DataFrame:
     """
-    Download the Adult Income dataset using KaggleHub.
-
-    Returns
-    -------
-    Path
-        Path to the downloaded CSV file.
-    """
-    dataset_dir = kagglehub.dataset_download(DATASET_NAME)
-    return Path(dataset_dir) / DATA_FILE_NAME
-
-
-def load_dataset(path: str | Path) -> pd.DataFrame:
-    """
-    Load dataset from a CSV file.
+    Load the Adult Income dataset.
 
     Parameters
     ----------
-    path : str | Path
-        Path to the CSV file.
+    path : str | Path, optional
+        Dataset path. Defaults to DATASET_PATH.
 
     Returns
     -------
     pd.DataFrame
         Loaded dataset.
-
-    Raises
-    ------
-    DatasetLoadError
-        If the dataset cannot be loaded.
     """
     path = Path(path)
 
     try:
-        if not path.exists():
-            raise FileNotFoundError(f"Dataset not found at: {path}")
+        if not path.is_file():
+            raise FileNotFoundError(
+                f"Dataset file not found: {path}"
+            )
 
-        df = pd.read_csv(path)
+        dataframe = pd.read_csv(path)
 
-        if df.empty:
-            raise DatasetLoadError("Dataset was loaded but is empty.")
+        if dataframe.empty:
+            raise DatasetLoadError(
+                "Dataset was loaded but contains no records."
+            )
 
-        return df
+        return dataframe
 
     except Exception as error:
-        raise DatasetLoadError(f"Failed to load dataset: {error}") from error
+        raise DatasetLoadError(
+            f"Failed to load dataset from '{path}': {error}"
+        ) from error
